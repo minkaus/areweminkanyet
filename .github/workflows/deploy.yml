@@ -25,7 +25,7 @@ jobs:
         shell: sh
 
       - name: Build website
-        run: devenv shell wasm-pack build --release && cd www && yarn run build
+        run: devenv shell wasm-pack build --release && cd www && yarn install --frozen-lockfile && yarn run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
