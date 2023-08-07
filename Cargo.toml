@@ -1,0 +1,30 @@
+[package]
+name = "areweaplangyet-wasm"
+version = "0.1.0"
+authors = ["Valentin B. <valentin.be@protonmail.com>"]
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+console_error_panic_hook = "0.1"
+js-sys = "0.3"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+wee_alloc = "0.4"
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+    "Headers",
+    "Request",
+    "RequestInit",
+    "RequestMode",
+    "Response",
+    "Window",
+]
+
+[profile.release]
+lto = true
+opt-level = "s"

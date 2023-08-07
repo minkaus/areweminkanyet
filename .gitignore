@@ -1,0 +1,25 @@
+# Rust
+/target/
+
+# WASM
+bin/
+pkg/
+node_modules
+wasm-pack.log
+
+# Miscellaneous system files
+.DS_Store
+*~
+._*
+.env
+Thumbs.db
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

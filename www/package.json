@@ -1,0 +1,19 @@
+{
+  "name": "areweaplangyet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack serve --open --config webpack.config.js"
+  },
+  "dependencies": {
+    "areweaplangyet-wasm": "file:../pkg"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
