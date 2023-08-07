@@ -3,7 +3,7 @@ import * as aplang from "areweaplangyet-wasm";
 const REPO = "APLanguage/aplang-rs";
 
 function getPhrase(days) {
-  if (days != 0) {
+  if (days == 0) {
     return "A good day to be AP";
   } else {
     return "Get off Discord";
