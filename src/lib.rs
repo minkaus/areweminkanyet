@@ -18,12 +18,12 @@ pub fn _setup_console_error() {
 }
 
 #[wasm_bindgen]
-pub async fn fetch_latest_commit(repo: &str) -> Result<JsValue, JsValue> {
+pub async fn fetch_latest_commit(repo: &str, start: f64) -> Result<JsValue, JsValue> {
     let mut opts = RequestInit::new();
     opts.method("GET");
     opts.mode(RequestMode::Cors);
 
-    let url = format!("https://api.github.com/repos/{repo}/commits");
+    let url = format!("https://api.github.com/repos/{repo}/commits?per_page=1");
     let request = Request::new_with_str_and_init(&url, &opts)?;
     request
         .headers()
@@ -36,10 +36,10 @@ pub async fn fetch_latest_commit(repo: &str) -> Result<JsValue, JsValue> {
     let response: Response = response.dyn_into().unwrap();
 
     let json = JsFuture::from(response.json()?).await?;
-    extract_first_commit_info(json)
+    extract_first_commit_info(json, start)
 }
 
-fn extract_first_commit_info(json: JsValue) -> Result<JsValue, JsValue> {
+fn extract_first_commit_info(json: JsValue, start: f64) -> Result<JsValue, JsValue> {
     let first = Reflect::get_u32(&json, 0)?;
 
     let sha = Reflect::get(&first, &JsValue::from_str("sha"))?;
@@ -48,10 +48,10 @@ fn extract_first_commit_info(json: JsValue) -> Result<JsValue, JsValue> {
     let date = Reflect::get(&author, &JsValue::from_str("date"))?;
 
     let date = Date::new(&date).get_time();
-    let days = utils::get_elapsed_days_since(date);
 
     js_object! {
         sha: sha,
-        days: days.into(),
+        days: utils::get_elapsed_days_since(date).into(),
+        daysTotal: utils::get_elapsed_days_since(start).into(),
     }
 }
